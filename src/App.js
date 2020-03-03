@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import WebFont from 'webfontloader';
+
+import Routes from './routes/routes';
+import GlobalStyle from './styles/global';
+
+WebFont.load({
+  google: {
+    families: [
+      'Nunito Sans:300,400,600,700,800,900',
+      'Montserrat:300,400,600,700,800',
+      'Lato:300,400,600,700',
+      'Nunito:400,600,700,900',
+      'Ubuntu:400,600,700',
+    ],
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes />
+      <GlobalStyle />
+    </>
   );
 }
 
