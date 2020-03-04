@@ -4,9 +4,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin: 10px 0;
   align-items: center;
   justify-content: space-between;
+  background: ${props =>
+    props.active ? 'rgba(0, 0, 0, 0.08);' : 'transparent'};
+  padding: 11px 15px;
+  cursor: pointer;
 `;
 
 export const Info = styled.div`

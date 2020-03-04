@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaEdit, FaTrash, FaWhatsapp, FaSkype } from 'react-icons/fa';
+import { FaWhatsapp, FaSkype } from 'react-icons/fa';
 
 import Contact from '../../../components/Contact';
 
-import api from '../../../api';
+import users from '../../../api/users.json';
 
 import {
   Container,
@@ -65,22 +65,25 @@ const Skype = (
   </svg>
 );
 
+const Edit = require('../../../assets/images/edit.png');
+const Trash = require('../../../assets/images/trash.png');
+
 export default function Profile() {
   return (
     <Container>
       <Contact
         profile
-        name={api[0].name}
-        company={api[0].company}
-        pic={api[0].pic}
+        name={users[0].name}
+        company={users[0].company}
+        pic={users[0].pic}
         picDimensions={48}
       />
       <ContactActions>
         <Action>
-          <FaEdit style={{ color: '#00A7CF' }} />
+          <img src={Edit} alt="edit" />
         </Action>
         <Action>
-          <FaTrash style={{ color: '#E33E1A' }} />
+          <img src={Trash} alt="delete" />
         </Action>
       </ContactActions>
       <LastChats>
@@ -99,26 +102,26 @@ export default function Profile() {
         </LastDate>
       </LastChats>
       <Title>OBSERVAÇÕES</Title>
-      <Text>{api[0].obs}</Text>
-      <ContactInfo>
+      <Text>{users[0].obs}</Text>
+      <ContactInfo style={{ marginTop: 30 }}>
         {WhatsApp}
         <Number>
           <Title>WHATSAPP</Title>
-          <Text>{api[0].whatsapp}</Text>
+          <Text>{users[0].whatsapp}</Text>
         </Number>
       </ContactInfo>
       <ContactInfo>
         {Email}
         <Number>
           <Title>EMAIL</Title>
-          <Text>{api[0].email}</Text>
+          <Text>{users[0].email}</Text>
         </Number>
       </ContactInfo>
       <ContactInfo>
         {Skype}
         <Number>
           <Title>SKYPE</Title>
-          <Text>{api[0].skype}</Text>
+          <Text>{users[0].skype}</Text>
         </Number>
       </ContactInfo>
     </Container>

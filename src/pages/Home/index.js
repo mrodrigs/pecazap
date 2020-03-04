@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Aside from './Aside';
 import Header from './Header';
@@ -10,9 +10,15 @@ import ChatInput from './ChatInput';
 import { Container, MainContainer, MiddleContainer } from './styles';
 
 export default function Home() {
+  const [screenWidth, setScreenWidth] = useState(null);
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
+
   return (
     <Container>
-      <Aside />
+      {screenWidth > 980 ? <Aside /> : null}
       <MainContainer>
         <NavIcons />
         <MiddleContainer>
@@ -20,7 +26,7 @@ export default function Home() {
           <ChatContainer />
           <ChatInput />
         </MiddleContainer>
-        <Profile />
+        {screenWidth > 1270 ? <Profile /> : null}
       </MainContainer>
     </Container>
   );

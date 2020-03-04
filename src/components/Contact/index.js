@@ -6,9 +6,18 @@ import ProfilePic from '../ProfilePic';
 import { Container, Info, Name, Company, Notification } from './styles';
 
 function Contact(props) {
-  const { picDimensions, name, company, pic, notification, profile } = props;
+  const {
+    picDimensions,
+    name,
+    company,
+    pic,
+    notification,
+    profile,
+    active,
+    onClick,
+  } = props;
   return (
-    <Container>
+    <Container active={active} onClick={onClick}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <ProfilePic
           dimensions={picDimensions}
@@ -32,11 +41,15 @@ Contact.propTypes = {
   notification: PropTypes.number,
   pic: PropTypes.string,
   profile: PropTypes.bool.isRequired,
+  active: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 Contact.defaultProps = {
   pic: 'https://pngimage.net/wp-content/uploads/2019/05/user-png-4.png',
   notification: 0,
+  active: false,
+  onClick: null,
 };
 
 export default Contact;

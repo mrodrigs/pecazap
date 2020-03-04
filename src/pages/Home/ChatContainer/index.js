@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import api from '../../../api';
+import users from '../../../api/users.json';
 
 import ProfilePic from '../../../components/ProfilePic';
 
@@ -16,6 +16,8 @@ import {
   FriendMessage,
   FriendContactInfo,
   FriendMessageTriangle,
+  DateContainer,
+  Divider,
 } from './styles';
 
 const Seen = (
@@ -35,9 +37,22 @@ const Seen = (
 );
 
 export default function ChatContainer() {
+  useEffect(() => {
+    const startAtEndContainer = document.getElementById('scrolldiv');
+    startAtEndContainer.scrollTop = startAtEndContainer.scrollHeight;
+  }, []);
+
   return (
-    <Container>
-      {api[0].messages.map(message =>
+    <Container id="scrolldiv">
+      <DateContainer>
+        <Divider />
+        <Date>
+          <span>Atendimento finalizado em</span>
+          <strong style={{ color: 'black', marginLeft: 4 }}>07/10/2019</strong>
+        </Date>
+        <Divider />
+      </DateContainer>
+      {users[0].messages.map(message =>
         message.isMine ? (
           <ContactContainer>
             <FriendContactInfo>
@@ -45,7 +60,7 @@ export default function ChatContainer() {
                 dimensions={24}
                 src="https://lh3.googleusercontent.com/a-/AAuE7mC0--qzGsJ2YzLSjn_SVn8ztwtnVYiCxL_gPMGZYw=s96-cc-rg"
               />
-              <Name style={{ marginRight: 10 }}>Rodrigo</Name>
+              <Name style={{ marginRight: 10 }}>Maurício Rodrigues</Name>
               <Name style={{ margin: '0px 5px' }}>-</Name>
               <Time>07/10/2019 14h15</Time>
               {Seen}
@@ -58,7 +73,7 @@ export default function ChatContainer() {
         ) : (
             <ContactContainer>
               <ContactInfo>
-                <ProfilePic dimensions={24} src={api[0].pic} />
+                <ProfilePic dimensions={24} src={users[0].pic} />
                 <Name style={{ marginLeft: 10 }}>João da Silva</Name>
                 <Name style={{ margin: '0px 5px' }}>-</Name>
                 <Time>07/10/2019 14h00</Time>
@@ -69,47 +84,6 @@ export default function ChatContainer() {
             </ContactContainer>
           )
       )}
-      <ContactContainer>
-        <FriendContactInfo>
-          <ProfilePic
-            dimensions={24}
-            src="https://lh3.googleusercontent.com/a-/AAuE7mC0--qzGsJ2YzLSjn_SVn8ztwtnVYiCxL_gPMGZYw=s96-cc-rg"
-          />
-          <Name style={{ marginRight: 10 }}>Maurício Rodrigues</Name>
-          <Name style={{ margin: '0px 5px' }}>-</Name>
-          <Time>07/10/2019 14h10</Time>
-          {Seen}
-        </FriendContactInfo>
-        <FriendMessageTriangle
-          style={{ display: 'flex', alignSelf: 'flex-end' }}
-        />
-        <FriendMessage>
-          Quisque enim purus, hendrerit et volutpat viverra, faucibus non neque.
-          Suspendisse quis arcu lacus. Sed tincidunt dui at leo laoreet, vel
-          suscipit mauris dignissim. Phasellus ullamcorper orci ac lorem
-          ultrices, ac fringilla nisi bibendum.
-        </FriendMessage>
-      </ContactContainer>
-      <ContactContainer>
-        <ContactInfo>
-          <ProfilePic dimensions={24} src={api[0].pic} />
-          <Name style={{ marginLeft: 10 }}>João da Silva</Name>
-          <Name style={{ margin: '0px 5px' }}>-</Name>
-          <Time>07/10/2019 14h00</Time>
-          {Seen}
-        </ContactInfo>
-        <MessageTriangle />
-        <MessageContainer>
-          Quisque enim purus, hendrerit et volutpat viverra, faucibus non neque.
-          Suspendisse quis arcu lacus. Sed tincidunt dui at leo laoreet, vel
-          suscipit mauris dignissim. Phasellus ullamcorper orci ac lorem
-          ultrices, ac fringilla nisi bibendum.
-        </MessageContainer>
-      </ContactContainer>
-      <Date>
-        Atendimento finalizado em⠀
-        <b>07/10/2019</b>
-      </Date>
     </Container>
   );
 }

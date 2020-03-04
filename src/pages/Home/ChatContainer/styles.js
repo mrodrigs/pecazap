@@ -5,29 +5,43 @@ export const Container = styled.div`
   width: 100%;
   background-color: #f5f8fa;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: auto;
   padding: 0 20px;
+  overflow-x: hidden;
+`;
+
+export const DateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+export const Divider = styled.div`
+  margin-bottom: 21px;
+  height: 0;
+  width: 100%;
+  border: 1px solid #dddddd;
+  display: flex;
+  align-self: center;
 `;
 
 export const Date = styled.div`
   font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
   font-size: 15px;
-  line-height: 16px;
   color: #636466;
 
   background: #dbf3f8;
-  height: 44px;
-  width: 325px;
+  min-height: 44px;
+  min-width: 325px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 100px;
   margin-bottom: 44px;
+  margin-top: 21px;
 
   display: flex;
-  align-items: center;
   align-self: center;
+  align-items: center;
   justify-content: center;
 `;
 

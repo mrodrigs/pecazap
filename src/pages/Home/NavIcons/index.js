@@ -7,7 +7,7 @@ import ColoredSkype from '../../../components/Logo/ColoredSkype';
 import ColoredPhone from '../../../components/Logo/ColoredPhone';
 import ColoredChat from '../../../components/Logo/ColoredChat';
 
-import { Container, IconContainer } from './styles';
+import { Container, IconContainer, Notification } from './styles';
 
 function WhatsApp() {
   return (
@@ -61,6 +61,9 @@ export default function NavIcons() {
         whatsapp
       >
         {selected === 1 ? <WhatsApp /> : <ColoredWhatsapp />}
+        <Notification style={{ display: 'flex', alignSelf: 'flex-end' }}>
+          1
+        </Notification>
       </IconContainer>
       <IconContainer
         onClick={() => handleSetSelected(2)}

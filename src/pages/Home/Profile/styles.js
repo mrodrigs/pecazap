@@ -55,7 +55,7 @@ export const LastDate = styled.div`
 export const ContactInfo = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
+  margin-bottom: 20px;
   align-items: center;
 `;
 

@@ -11,11 +11,6 @@ export const Container = styled.div`
 export const IconContainer = styled.div`
   height: 64px;
   width: 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px 20px;
   background-color: ${props => {
     if (props.active) {
       if (props.whatsapp) return '#25d366';
@@ -24,4 +19,24 @@ export const IconContainer = styled.div`
     return 'transparent';
   }};
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+`;
+
+export const Notification = styled.div`
+  height: 20px;
+  width: 20px;
+  background: #e33e1a;
+  border: 2px solid #9dd0c9;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: #fff;
+  margin-right: 10px;
 `;
