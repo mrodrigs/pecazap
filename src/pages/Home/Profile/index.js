@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaWhatsapp, FaSkype } from 'react-icons/fa';
 
 import Contact from '../../../components/Contact';
-
-import users from '../../../api/users.json';
 
 import {
   Container,
@@ -68,16 +67,38 @@ const Skype = (
 const Edit = require('../../../assets/images/edit.png');
 const Trash = require('../../../assets/images/trash.png');
 
+const usersUrl = 'http://www.mocky.io/v2/5e5fefe83300004e0997b721';
+
 export default function Profile() {
+  const [users, setUsers] = useState([]);
+
+  async function handleGetUsers() {
+    try {
+      const response = await axios.get(usersUrl);
+
+      if (response.status === 200) {
+        setUsers(response.data);
+      }
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  }
+
+  useEffect(() => {
+    handleGetUsers();
+  }, []);
+
   return (
     <Container>
-      <Contact
-        profile
-        name={users[0].name}
-        company={users[0].company}
-        pic={users[0].pic}
-        picDimensions={48}
-      />
+      {users.length > 0 ? (
+        <Contact
+          profile
+          name={users[0].name}
+          company={users[0].company}
+          pic={users[0].pic}
+          picDimensions={48}
+        />
+      ) : null}
       <ContactActions>
         <Action>
           <img src={Edit} alt="edit" />
@@ -101,29 +122,33 @@ export default function Profile() {
           <Text>15/06/2019 (100 dias atrás)</Text>
         </LastDate>
       </LastChats>
-      <Title>OBSERVAÇÕES</Title>
-      <Text>{users[0].obs}</Text>
-      <ContactInfo style={{ marginTop: 30 }}>
-        {WhatsApp}
-        <Number>
-          <Title>WHATSAPP</Title>
-          <Text>{users[0].whatsapp}</Text>
-        </Number>
-      </ContactInfo>
-      <ContactInfo>
-        {Email}
-        <Number>
-          <Title>EMAIL</Title>
-          <Text>{users[0].email}</Text>
-        </Number>
-      </ContactInfo>
-      <ContactInfo>
-        {Skype}
-        <Number>
-          <Title>SKYPE</Title>
-          <Text>{users[0].skype}</Text>
-        </Number>
-      </ContactInfo>
+      {users.length > 0 ? (
+        <>
+          <Title>OBSERVAÇÕES</Title>
+          <Text>{users[0].obs}</Text>
+          <ContactInfo style={{ marginTop: 30 }}>
+            {WhatsApp}
+            <Number>
+              <Title>WHATSAPP</Title>
+              <Text>{users[0].whatsapp}</Text>
+            </Number>
+          </ContactInfo>
+          <ContactInfo>
+            {Email}
+            <Number>
+              <Title>EMAIL</Title>
+              <Text>{users[0].email}</Text>
+            </Number>
+          </ContactInfo>
+          <ContactInfo>
+            {Skype}
+            <Number>
+              <Title>SKYPE</Title>
+              <Text>{users[0].skype}</Text>
+            </Number>
+          </ContactInfo>
+        </>
+      ) : null}
     </Container>
   );
 }

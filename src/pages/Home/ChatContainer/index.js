@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-
-import users from '../../../api/users.json';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import ProfilePic from '../../../components/ProfilePic';
 
@@ -36,8 +35,25 @@ const Seen = (
   </svg>
 );
 
+const usersUrl = 'http://www.mocky.io/v2/5e5fefe83300004e0997b721';
+
 export default function ChatContainer() {
+  const [users, setUsers] = useState([]);
+
+  async function handleGetUsers() {
+    try {
+      const response = await axios.get(usersUrl);
+
+      if (response.status === 200) {
+        setUsers(response.data);
+      }
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  }
+
   useEffect(() => {
+    handleGetUsers();
     const startAtEndContainer = document.getElementById('scrolldiv');
     startAtEndContainer.scrollTop = startAtEndContainer.scrollHeight;
   }, []);
@@ -52,38 +68,40 @@ export default function ChatContainer() {
         </Date>
         <Divider />
       </DateContainer>
-      {users[0].messages.map(message =>
-        message.isMine ? (
-          <ContactContainer>
-            <FriendContactInfo>
-              <ProfilePic
-                dimensions={24}
-                src="https://lh3.googleusercontent.com/a-/AAuE7mC0--qzGsJ2YzLSjn_SVn8ztwtnVYiCxL_gPMGZYw=s96-cc-rg"
-              />
-              <Name style={{ marginRight: 10 }}>Maurício Rodrigues</Name>
-              <Name style={{ margin: '0px 5px' }}>-</Name>
-              <Time>07/10/2019 14h15</Time>
-              {Seen}
-            </FriendContactInfo>
-            <FriendMessageTriangle
-              style={{ display: 'flex', alignSelf: 'flex-end' }}
-            />
-            <FriendMessage>{message.content}</FriendMessage>
-          </ContactContainer>
-        ) : (
+      {users.length > 0
+        ? users[0].messages.map(message =>
+          message.isMine ? (
             <ContactContainer>
-              <ContactInfo>
-                <ProfilePic dimensions={24} src={users[0].pic} />
-                <Name style={{ marginLeft: 10 }}>João da Silva</Name>
+              <FriendContactInfo>
+                <ProfilePic
+                  dimensions={24}
+                  src="https://lh3.googleusercontent.com/a-/AAuE7mC0--qzGsJ2YzLSjn_SVn8ztwtnVYiCxL_gPMGZYw=s96-cc-rg"
+                />
+                <Name style={{ marginRight: 10 }}>Maurício Rodrigues</Name>
                 <Name style={{ margin: '0px 5px' }}>-</Name>
-                <Time>07/10/2019 14h00</Time>
+                <Time>07/10/2019 14h15</Time>
                 {Seen}
-              </ContactInfo>
-              <MessageTriangle />
-              <MessageContainer>{message.content}</MessageContainer>
+              </FriendContactInfo>
+              <FriendMessageTriangle
+                style={{ display: 'flex', alignSelf: 'flex-end' }}
+              />
+              <FriendMessage>{message.content}</FriendMessage>
             </ContactContainer>
-          )
-      )}
+          ) : (
+              <ContactContainer>
+                <ContactInfo>
+                  <ProfilePic dimensions={24} src={users[0].pic} />
+                  <Name style={{ marginLeft: 10 }}>João da Silva</Name>
+                  <Name style={{ margin: '0px 5px' }}>-</Name>
+                  <Time>07/10/2019 14h00</Time>
+                  {Seen}
+                </ContactInfo>
+                <MessageTriangle />
+                <MessageContainer>{message.content}</MessageContainer>
+              </ContactContainer>
+            )
+        )
+        : null}
     </Container>
   );
 }
